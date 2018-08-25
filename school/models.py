@@ -12,6 +12,9 @@ class Person(models.Model):
   age = models.IntegerField()
   sex = models.IntegerField(editable=False)
 
+  def __str__(self):
+    return self.name
+
 class Lesson(models.Model):
 
   ENGLISH = 0
@@ -22,3 +25,6 @@ class Lesson(models.Model):
   joined_at = models.DateTimeField()
   lesson_category = models.IntegerField()
   lesson_time = models.IntegerField()
+
+  def __int__(self):
+    return self.lesson_category
