@@ -17,4 +17,8 @@ class IndexView(generic.ListView):
   def get_queryset(self):
     return Person.objects.all()
 
+def user_new(request):
+  return render(request, 'school/user_new.html')
 
+def user_create(request):
+  person = get_object_or_404(Person)

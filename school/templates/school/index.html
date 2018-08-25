@@ -12,19 +12,21 @@
     </tr>
   </thead>
   <tbody>
-    {% for p in person_list %}
+    {% for person in person_list %}
     <tr>
-      <td>{{p.id}}</td>
-      <td>{{p.name}}</td>
+      <td>{{person.id}}</td>
+      <td>{{person.name}}</td>
       <td>
-        {% if p.sex == 0 %}
+        {% if person.sex == 0 %}
           男
         {% else %}
           女
         {% endif %}</td>
-      <td>{{p.age}}</td>
+      <td>{{person.age}}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+<a href = "/school/user_new/">新規追加</a>
+
 
