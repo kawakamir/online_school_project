@@ -10,5 +10,20 @@
     <input type="text" name="new_user_name" value="{{person.name}}">
   </label>
 </p>
+<p>
+  <label>
+    性別:
+    <select name="new_user_sex">
+      <option value="{{person.sex.0}}">男</option>
+      <option value="{{person.sex.1}}">女</option>
+    </select>
+  </label>
+</p>
+<p>
+  <label>
+    年齢:
+    <input type="number" name="new_user_age" value="{{person.age}}">
+  </label>
+</p>
 <input type="submit" value="登録">
 </form>
