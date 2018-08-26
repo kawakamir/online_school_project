@@ -28,7 +28,30 @@ class Lesson(models.Model):
   person = models.ForeignKey('Person',on_delete=models.CASCADE)
   joined_at = models.DateTimeField()
   lesson_category = models.IntegerField()
-  lesson_time = models.IntegerField()
+  lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1)],validators=[validators.MaxValueValidator(12)])
+
+  def _get_price(self):
+    if self.lesson_category==0:
+      return 5000+self.lesson_time*3500
+    elif self.lesson_category==1:
+      if self.lesson_time > 50:
+        return 3300*20+2800*30+2500*(self.lesson_time - 50)
+      elif self.lesson_time > 20:
+        return 3300*20+2800*(self.lesson_time - 50)
+      else:
+        return 3300*self.lesson_time
+    else:
+      if self.lesson_time > 50:
+        return 20000 + 3500 * 15 + 3000 * 15 + 2800 * 15 + 2500 * (self.lesson_time - 50)
+      elif self.lesson_time > 35:
+        return 20000 + 3500 * 15 + 3000 * 15 +2800 *(self.lesson_time - 50)
+      elif self.lesson_time > 20:
+        return 20000 + 3500 * 15 + 3000 * (self.lesson_time - 20)
+      elif self.lesson_time > 5:
+        return 20000 + 3500 * (self.lesson_time - 5)
+      else:
+        return 20000
+  lesson_price = property(_get_price)
 
   def __int__(self):
     return self.lesson_category

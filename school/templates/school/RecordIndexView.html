@@ -25,10 +25,12 @@
           プログラミング
         {% else %}
           ファイナンス
-        {% endif %}</td>
+        {% endif %}
+      </td>
       <td>{{lesson.joined_at}}</td>
       <td>{{lesson.lesson_time}}</td>
-      <td></td>
+      <td>{{lesson.lesson_price}}</td>
+      <td><a href = "/school/lessonupdate/{{lesson.id}}">編集</a></td>
     </tr>
     {% endfor %}
   </tbody>

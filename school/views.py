@@ -32,3 +32,6 @@ class RecordIndexView(generic.ListView):
   def get_queryset(self, **kwargs):
     return Lesson.objects.all()
 
+class RecordUpdateView(generic.UpdateView):
+  template_name = ''
+
