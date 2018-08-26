@@ -33,5 +33,8 @@ class RecordIndexView(generic.ListView):
     return Lesson.objects.all()
 
 class RecordUpdateView(generic.UpdateView):
-  template_name = ''
+  model = Lesson
+  fields = '__all__'
+  template_name = 'school/RecordUpdateView.html'
+  success_url = reverse_lazy('school:lessonindex')
 

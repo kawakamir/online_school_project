@@ -28,7 +28,7 @@ class Lesson(models.Model):
   person = models.ForeignKey('Person',on_delete=models.CASCADE)
   joined_at = models.DateTimeField()
   lesson_category = models.IntegerField()
-  lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1)],validators=[validators.MaxValueValidator(12)])
+  lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1),validators.MaxValueValidator(12)])
 
   def _get_price(self):
     if self.lesson_category==0:

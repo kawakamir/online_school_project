@@ -9,6 +9,6 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('user_new/', views.user_new, name = 'user_new'),
     path('personcreate/', views.PersonCreate.as_view(), name='person_create'),
-    path('lessonrecord/', views.RecordIndexView.as_view(), name= 'lessonindex')
-    pash('lessonupdate/<int:pk>/', views.RecordUpdateView.as_view(), name= 'lessonupdate')
+    path('lessonrecord/', views.RecordIndexView.as_view(), name= 'lessonindex'),
+    path('lessonupdate/<int:pk>/', views.RecordUpdateView.as_view(), name= 'lessonupdate'),
 ]
