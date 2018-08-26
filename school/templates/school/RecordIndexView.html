@@ -1,0 +1,36 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'school/style.css' %}">
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>受講者</th>
+      <th>ジャンル</th>
+      <th>受講日</th>
+      <th>受講時間</th>
+      <th>支払い金額</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for lesson in lesson_list %}
+    <tr>
+      <td>{{lesson.person.id}}</td>
+      <td>{{lesson.person.name}}</td>
+      <td>
+        {% if lesson.lesson_category == 0 %}
+          英語
+        {% elif lesson.lesson_category == 1 %}
+          プログラミング
+        {% else %}
+          ファイナンス
+        {% endif %}</td>
+      <td>{{lesson.joined_at}}</td>
+      <td>{{lesson.lesson_time}}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href = "/school/personcreate/">新規追加</a>
