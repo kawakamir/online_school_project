@@ -1,16 +1,20 @@
 from django.db import models
+from django.core import validators
 
 # Create your models here.
 
 
 class Person(models.Model):
 
-  MAN = 0
-  WOMAN = 1
+  SEX_CHOICES= (
+    (0, '男'),
+    (1, '女'),
+    )
 
-  name = models.CharField(max_length=128)
-  age = models.IntegerField()
-  sex = models.IntegerField(editable=False)
+  name = models.CharField(max_length=128, verbose_name="名前")
+  sex = models.IntegerField(choices=SEX_CHOICES, verbose_name="性別")
+  age = models.IntegerField(verbose_name="年齢", validators=[validators.MinValueValidator(1)])
+
 
   def __str__(self):
     return self.name
