@@ -56,8 +56,6 @@ class Lesson(models.Model):
       else:
         return 20000
   lesson_price = property(_get_price)
-  def out_today(self):
-    return date.today()
 
   def __int__(self):
     return self.lesson_category
