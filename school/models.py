@@ -21,14 +21,16 @@ class Person(models.Model):
 
 class Lesson(models.Model):
 
-  ENGLISH = 0
-  PROGRAMMING = 1
-  FINANCE = 2
+  CATEGORY_CHOICES= (
+    (0, "英語"),
+    (1, "プログラミング"),
+    (2, "ファイナンス"),
+    )
 
-  person = models.ForeignKey('Person',on_delete=models.CASCADE)
-  joined_at = models.DateTimeField()
-  lesson_category = models.IntegerField()
-  lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1),validators.MaxValueValidator(12)])
+  person = models.ForeignKey('Person',on_delete=models.CASCADE,verbose_name="受講者")
+  joined_at = models.DateTimeField(verbose_name="受講日")
+  lesson_category = models.IntegerField(choices=CATEGORY_CHOICES,verbose_name="ジャンル")
+  lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1),validators.MaxValueValidator(12)],verbose_name="受講時間")
 
   def _get_price(self):
     if self.lesson_category==0:
