@@ -38,3 +38,9 @@ class RecordUpdateView(generic.UpdateView):
   template_name = 'school/RecordUpdateView.html'
   success_url = reverse_lazy('school:lessonindex')
 
+class RecordCreateView(generic.CreateView):
+  model = Lesson
+  template_name = 'school/RecordCreateView.html'
+  fields = '__all__'
+  success_url = reverse_lazy('school:lessonindex')
+

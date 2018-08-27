@@ -27,7 +27,7 @@
           ファイナンス
         {% endif %}
       </td>
-      <td>{{lesson.joined_at}}</td>
+      <td>{{lesson.joined_at |date:"Y/m/d"}}</td>
       <td>{{lesson.lesson_time}}</td>
       <td>{{lesson.lesson_price}}</td>
       <td><a href = "/school/lessonupdate/{{lesson.id}}">編集</a></td>
@@ -35,4 +35,4 @@
     {% endfor %}
   </tbody>
 </table>
-<a href = "/school/personcreate/">新規追加</a>
+<a href = "/school/lessoncreate/">新規追加</a>

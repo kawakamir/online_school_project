@@ -11,4 +11,5 @@ urlpatterns = [
     path('personcreate/', views.PersonCreate.as_view(), name='person_create'),
     path('lessonrecord/', views.RecordIndexView.as_view(), name= 'lessonindex'),
     path('lessonupdate/<int:pk>/', views.RecordUpdateView.as_view(), name= 'lessonupdate'),
+    path('lessoncreate/', views.RecordCreateView.as_view(), name= 'lessoncreate')
 ]
