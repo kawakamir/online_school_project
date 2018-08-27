@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.views.generic.edit import CreateView
 from .models import Person, Lesson
-
+from datetime import date
 # Create your views here.
 
 def menu(request):
@@ -43,4 +43,10 @@ class RecordCreateView(generic.CreateView):
   template_name = 'school/RecordCreateView.html'
   fields = '__all__'
   success_url = reverse_lazy('school:lessonindex')
+
+class InvoiceSummaryView(generic.ListView):
+  template_name = 'school/InvoiceSummaryView.html'
+  context_object_name = 'invoice_summary'
+  def get_queryset(self, **kwargs):
+    return {'lesson_list':Lesson.objects.all(), 'first_month':date.today()}
 
