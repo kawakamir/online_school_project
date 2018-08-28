@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView
 from .models import Person, Lesson
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
+from .forms import MyForm
 # Create your views here.
 
 def menu(request):
@@ -48,10 +49,14 @@ class RecordCreateView(generic.CreateView):
 class InvoiceSummaryView(generic.ListView):
   template_name = 'school/InvoiceSummaryView.html'
   context_object_name = 'invoice_summary'
+  form_class = MyForm
 
   def get_queryset(self, **kwargs):
     first_month = date.today()
     second_month = date.today() - relativedelta(months=1)
     third_month = date.today() -relativedelta(months=2)
-    return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month}
-
+    form = self.form_class(self.request.GET)
+    if form.is_valid():
+      return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class, 'month_input':form.cleaned_data['month']}
+    else:
+      return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class,'month_input':'hello'}

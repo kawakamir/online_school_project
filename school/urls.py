@@ -12,5 +12,6 @@ urlpatterns = [
     path('lessonrecord/', views.RecordIndexView.as_view(), name= 'lessonindex'),
     path('lessonupdate/<int:pk>/', views.RecordUpdateView.as_view(), name= 'lessonupdate'),
     path('lessoncreate/', views.RecordCreateView.as_view(), name= 'lessoncreate'),
-    path('invoicesummary/', views.InvoiceSummaryView.as_view(), name = 'invoicesummary'),
+    path('invoiceselect/<month>', views.InvoiceSummaryView.as_view(), name = 'invoiceselect'),
+    path('invoiceselect/', views.InvoiceSummaryView.as_view(), name = 'invoiceselect'),
 ]
