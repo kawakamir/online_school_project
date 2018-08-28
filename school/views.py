@@ -57,6 +57,7 @@ class InvoiceSummaryView(generic.ListView):
     third_month = date.today() -relativedelta(months=2)
     form = self.form_class(self.request.GET)
     if form.is_valid():
-      return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class, 'month_input':form.cleaned_data['month']}
+      if form.cleaned_data['month'] == '1':
+        return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class, 'month_input':form.cleaned_data['month']}
     else:
       return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class,'month_input':'hello'}

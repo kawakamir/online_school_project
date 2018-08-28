@@ -10,11 +10,11 @@ third_month = date.today() -relativedelta(months=2)
 third_day = third_month.replace(day = 1)
 
 MONTH_CHOICES = (
-    (1, first_month),
-    (2, second_month),
-    (3, third_month)
+    (1, first_month.strftime('%Y年%m月')),
+    (2, second_month.strftime('%Y年%m月')),
+    (3, third_month.strftime('%Y年%m月'))
 )
 
 class MyForm(forms.Form):
-  selection = forms.ChoiceField(widget=forms.Select, choices=MONTH_CHOICES)
+  month = forms.ChoiceField(widget=forms.Select, choices=MONTH_CHOICES)
 
