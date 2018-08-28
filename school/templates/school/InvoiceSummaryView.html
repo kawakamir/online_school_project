@@ -1,18 +1,8 @@
 
 <form action="/school/invoiceselect/" method="get" >
-<p>
-<select name="date">
-  <option value={{ invoice_summary.first_month }}>{{ invoice_summary.first_month|date:"Y年m月" }}</option>
-  <option value="secondmonth">{{ invoice_summary.second_month|date:"Y年m月" }}</option>
-  <option value="thirdmonth">{{ invoice_summary.third_month|date:"Y年m月" }}</option>
-</select>
-</p>
-<p><input type="submit" value="送信する"></p>
-</form>
-
-<form action="/school/invoiceselect/" method="get" >
   {{ invoice_summary.form }}
 <p><input type="submit" value="送信する"></p>
 </form>
 
 {{invoice_summary.month_input}}
+{{invoice_summary.new_summary.person }}

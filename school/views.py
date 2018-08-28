@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.views.generic.edit import CreateView
 from .models import Person, Lesson
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from dateutil.relativedelta import relativedelta
 from .forms import MyForm
 # Create your views here.
@@ -52,12 +52,25 @@ class InvoiceSummaryView(generic.ListView):
   form_class = MyForm
 
   def get_queryset(self, **kwargs):
-    first_month = date.today()
-    second_month = date.today() - relativedelta(months=1)
-    third_month = date.today() -relativedelta(months=2)
     form = self.form_class(self.request.GET)
     if form.is_valid():
-      if form.cleaned_data['month'] == '1':
-        return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class, 'month_input':form.cleaned_data['month']}
+      tstr = form.cleaned_data['month']
+      search_month_first = datetime.strptime(tstr, '%Y-%m-%d')
+      search_month_end = search_month_first + relativedelta(months=1)
+      new_summary = {'person':[],'sum_category':[], 'sum_lesson': [], 'sum_price': []}
+      for lesson in Lesson.objects.all():
+        if lesson.joined_at >= search_month_first and lesson.joined_at < search_month_end:
+          if lesson.person in new_summary['person']:
+            i = new_summary.index[lesson.person]
+            new_summary['sum_lesson'][i] += 1
+            new_summary['sum_price'][i] = lesson.lesson_price
+            if not lesson.category in sum_lesson[i]:
+              new_summary['sum_category'].append(lesson.lesson_category)
+          else:
+            new_summary['person'].append(lesson.person)
+            new_summary['sum_category'].append(lesson.lesson_category)
+            new_summary['sum_lesson'].append(1)
+            new_summary['sum_price'].append(lesson.lesson_price)
+      return {'new_summary':new_summary, 'form':self.form_class, 'month_input':'hello2'}
     else:
-      return {'lesson_list':Lesson.objects.all(), 'first_month':first_month, 'second_month':second_month, 'third_month':third_month,'form':self.form_class,'month_input':'hello'}
+      return {'lesson_list':Lesson.objects.all(), 'form':self.form_class,'month_input':'hello'}
