@@ -54,36 +54,29 @@ class InvoiceSummaryView(generic.ListView):
   def get_queryset(self, **kwargs):
     form = self.form_class(self.request.GET)
     if form.is_valid():
-      tstr = form.cleaned_data['month']
+      tstr = form.cleaned_data['select']
       search_month_first = datetime.strptime(tstr, '%Y-%m-%d')
       search_month_end = search_month_first + relativedelta(months=1)
-      new_summary = {'id':[],'person':[],'sum_category':[], 'sum_lesson': [], 'sum_price': [], 'sum_length': []}
+      new_summary = []
       for person in Person.objects.all():
+        each_invoice = {'id': person.id,'person': person,'lesson_count':0,'category':[],'price':0,'category_length':0}
+        count = 0
         for lesson in Lesson.objects.all():
           if person == lesson.person and lesson.joined_at >= search_month_first and lesson.joined_at < search_month_end:
-            if lesson.person in new_summary['person']:
-              i = new_summary.index[lesson.person]
-              new_summary['sum_lesson'][i] += 1
-              new_summary['sum_price'][i] = lesson.lesson_price
-              if not lesson.category in sum_lesson[i]:
-                new_summary['sum_category'].append(lesson.lesson_category)
-            else:
-              new_summary['id'].append(person.id)
-              new_summary['person'].append(lesson.person)
-              new_summary['sum_category'].append(lesson.lesson_category)
-              new_summary['sum_lesson'].append(1)
-              new_summary['sum_price'].append(lesson.lesson_price)
-          else:
-            new_summary['id'].append(person.id)
-            new_summary['person'].append(person.name)
-            new_summary['sum_category'].append('-')
-            new_summary['sum_lesson'].append(0)
-            new_summary['sum_price'].append(0)
-      for i in range(len(new_summary['person'])):
-        new_summary['sum_length'].append(i)
+            if lesson.person == each_invoice['person']:
+              each_invoice['lesson_count'] += 1
+              each_invoice['price'] += lesson.lesson_price
+              count += 1
+              if not lesson.lesson_category in each_invoice['category']:
+                each_invoice['category'].append(lesson.lesson_category)
+        if count == 0:
+          each_invoice['lesson_count'] = 0
+          each_invoice['price'] = 0
+        each_invoice['category_length'] = len(each_invoice['category'])
+        new_summary.append(each_invoice)
       return {'new_summary':new_summary, 'form':self.form_class, 'month_input':'hello2'}
     else:
-      return {'lesson_list':Lesson.objects.all(), 'form':self.form_class,'month_input':'hello'}
+      return {'form':self.form_class}
 
 
 

@@ -1,11 +1,38 @@
 
 <form action="/school/invoiceselect/" method="get" >
   {{ invoice_summary.form }}
-<p><input type="submit" value="送信する"></p>
+<p><input type="submit" value="指定した月の集計をみる"></p>
 </form>
 
-{{invoice_summary.month_input}}
-{{invoice_summary.new_summary.person }}
-{{invoice_summary.i}}
-{{ invoice_summary.new_summary.sum_length }}
-
+<table border="1">
+  <tr>
+    <th>顧客ID</th>
+    <th>顧客名</th>
+    <th>ジャンル</th>
+    <th>合計レッスン</th>
+    <th>請求金額</th>
+  </tr>
+  {% for each_invoice in invoice_summary.new_summary %}
+  <tr>
+    <td>{{each_invoice.id}}</td>
+    <td>{{each_invoice.person}}</td>
+    <td>
+    {% for category in each_invoice.category %}
+      {% if category == 0 %}
+        英語
+      {% elif category == 1 %}
+        プログラミング
+      {% else %}
+        ファイナンス
+      {% endif %}
+      {% if not forloop.last == true %}
+        /
+      {% endif %}
+    {% endfor %}
+    ({{each_invoice.category_length}})
+    </td>
+    <td>{{each_invoice.lesson_count}}</td>
+    <td>{{each_invoice.price}}</td>
+  </tr>
+  {% endfor %}
+</table>

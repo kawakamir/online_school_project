@@ -16,5 +16,5 @@ MONTH_CHOICES = (
 )
 
 class MyForm(forms.Form):
-  month = forms.ChoiceField(widget=forms.Select, choices=MONTH_CHOICES)
+  select = forms.ChoiceField(widget=forms.Select, choices=MONTH_CHOICES)
 
