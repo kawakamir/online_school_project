@@ -89,24 +89,28 @@ class ReportView(generic.ListView):
       summary_report_first = []
       for i in range(3):
         for j in range(2):
-          each_report_first = {'category':i,'sex':j,'lesson_count':0,'person_count':0,'price':0}
+          each_report_first = {'category':i,'sex':j,'lesson_count':0,'person_count':0,'price':0,'person':[]}
           for lesson in Lesson.objects.all():
             if lesson.lesson_category == i and lesson.person.sex == j and lesson.joined_at >= search_month_first and lesson.joined_at < search_month_end:
               each_report_first['lesson_count'] += 1
-              each_report_first['person_count'] +=  1
               each_report_first['price'] += lesson.lesson_price
+              if not lesson.person in each_report_first['person']:
+                each_report_first['person'].append(lesson.person)
+                each_report_first['person_count'] +=  1
           summary_report_first.append(each_report_first)
 
       summary_report_second =[]
       for i in range(3):
         for j in range(2):
           for k in range(10,80,10):
-            each_report_second = {'category':i, 'sex':j, 'ages':k, 'lesson_count':0,'person_count':0,'price':0}
+            each_report_second = {'category':i, 'sex':j, 'ages':k, 'lesson_count':0,'person_count':0,'price':0, 'person':[]}
             for lesson in Lesson.objects.all():
               if lesson.lesson_category == i and lesson.person.sex == j and lesson.person.age >= k and lesson.person.age < (k+10) and lesson.joined_at >= search_month_first and lesson.joined_at < search_month_end:
                 each_report_second['lesson_count'] += 1
-                each_report_second['person_count'] += 1
                 each_report_second['price'] += lesson.lesson_price
+                if not lesson.person in each_report_second['person']:
+                  each_report_second['person'].append(lesson.person)
+                  each_report_second['person_count'] += 1
             summary_report_second.append(each_report_second)
       return {'summary_report_first':summary_report_first, 'summary_report_second':summary_report_second,'form':self.form_class}
     else:
