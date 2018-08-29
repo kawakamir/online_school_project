@@ -1,5 +1,7 @@
 
-<form action="/school/invoiceselect/" method="get" >
+<h1>請求一覧</h1>
+
+<form action="/school/invoicesummary/" method="get" >
   {{ invoice_summary.form }}
 <p><input type="submit" value="指定した月の集計をみる"></p>
 </form>
@@ -25,7 +27,7 @@
       {% else %}
         ファイナンス
       {% endif %}
-      {% if not forloop.last == true %}
+      {% if forloop.last == false %}
         /
       {% endif %}
     {% endfor %}
