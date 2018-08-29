@@ -1,5 +1,5 @@
 from django import forms
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from dateutil.relativedelta import relativedelta
 
 first_month = date.today()
@@ -8,11 +8,14 @@ second_month = date.today() - relativedelta(months=1)
 second_day = second_month.replace(day = 1)
 third_month = date.today() -relativedelta(months=2)
 third_day = third_month.replace(day = 1)
+fourth_month = date.today() -relativedelta(months=3)
+fourth_day = third_month.replace(day = 1)
 
 MONTH_CHOICES = (
     (first_day, first_month.strftime('%Y年%m月')),
     (second_day, second_month.strftime('%Y年%m月')),
-    (third_day, third_month.strftime('%Y年%m月'))
+    (third_day, third_month.strftime('%Y年%m月')),
+    (fourth_day, fourth_month.strftime('%Y年%m月')),
 )
 
 class MyForm(forms.Form):

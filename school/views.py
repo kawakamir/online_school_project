@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.views.generic.edit import CreateView
 from .models import Person, Lesson
-from datetime import date, timedelta, datetime
+from datetime import timedelta, datetime, date
 from dateutil.relativedelta import relativedelta
 from .forms import MyForm
 # Create your views here.
@@ -55,7 +55,8 @@ class InvoiceSummaryView(generic.ListView):
     form = self.form_class(self.request.GET)
     if form.is_valid():
       tstr = form.cleaned_data['select']
-      search_month_first = datetime.strptime(tstr, '%Y-%m-%d')
+      search_month_row = datetime.strptime(tstr, '%Y-%m-%d')
+      search_month_first = date(search_month_row.year, search_month_row.month, search_month_row.day)
       search_month_end = search_month_first + relativedelta(months=1)
       new_summary = []
       for person in Person.objects.all():
@@ -82,7 +83,8 @@ class ReportView(generic.ListView):
     form = self.form_class(self.request.GET)
     if form.is_valid():
       tstr = form.cleaned_data['select']
-      search_month_first = datetime.strptime(tstr, '%Y-%m-%d')
+      search_month_row = datetime.strptime(tstr, '%Y-%m-%d')
+      search_month_first = date(search_month_row.year, search_month_row.month, search_month_row.day)
       search_month_end = search_month_first + relativedelta(months=1)
       summary_report_first = []
       for i in range(3):

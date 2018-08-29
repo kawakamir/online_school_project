@@ -1,6 +1,7 @@
 from django.db import models
 from django.core import validators
-from datetime import date
+from datetime import datetime, date
+
 
 # Create your models here.
 
@@ -29,8 +30,7 @@ class Lesson(models.Model):
     )
 
   person = models.ForeignKey('Person',on_delete=models.CASCADE,verbose_name="受講者")
-  joined_at = models.DateField(validators = [validators.MaxValueValidator(
-            date.today())],verbose_name="受講日")
+  joined_at = models.DateField(verbose_name="受講日")
   lesson_category = models.IntegerField(choices=CATEGORY_CHOICES,verbose_name="ジャンル")
   lesson_time = models.IntegerField( validators=[validators.MinValueValidator(1),validators.MaxValueValidator(12)],verbose_name="受講時間")
 
