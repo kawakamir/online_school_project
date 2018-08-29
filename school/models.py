@@ -37,7 +37,7 @@ class Lesson(models.Model):
   def _get_price(self):
     if self.lesson_category==0:
       return 5000+self.lesson_time*3500
-    elif self.lesson_category==1:
+    elif self.lesson_category==2:
       if self.lesson_time > 50:
         return 3300*20+2800*30+2500*(self.lesson_time - 50)
       elif self.lesson_time > 20:
@@ -48,7 +48,7 @@ class Lesson(models.Model):
       if self.lesson_time > 50:
         return 20000 + 3500 * 15 + 3000 * 15 + 2800 * 15 + 2500 * (self.lesson_time - 50)
       elif self.lesson_time > 35:
-        return 20000 + 3500 * 15 + 3000 * 15 +2800 *(self.lesson_time - 50)
+        return 20000 + 3500 * 15 + 3000 * 15 +2800 *(self.lesson_time - 35)
       elif self.lesson_time > 20:
         return 20000 + 3500 * 15 + 3000 * (self.lesson_time - 20)
       elif self.lesson_time > 5:

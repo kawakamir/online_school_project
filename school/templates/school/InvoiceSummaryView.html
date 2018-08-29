@@ -27,9 +27,6 @@
       {% else %}
         ファイナンス
       {% endif %}
-      {% if forloop.last == false %}
-        /
-      {% endif %}
     {% endfor %}
     ({{each_invoice.category_length}})
     </td>
